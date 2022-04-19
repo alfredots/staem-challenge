@@ -4,8 +4,9 @@ declare module 'styled-components' {
   export interface DefaultTheme {
     colors: {
       highlight: '#e20e8d'
-      background: '#030518'
-      white: '#eeeeee'
+      background: '#1B2837'
+      text: '#FFF'
+      subtitle: '#8B8F96'
     }
     container: '100rem'
     sizing: {

@@ -1,5 +1,7 @@
 import Head from 'next/head'
 import { Main } from 'components/Main'
+import { useEffect, useState } from 'react'
+import { getFirstGames, filterGamesByString } from 'service/SteamService'
 
 export default function Home() {
   return (

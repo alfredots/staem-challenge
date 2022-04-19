@@ -10,6 +10,7 @@
     "test:watch": "yarn test --watchAll"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^1.35.0",
     "next": "12.0.4",
     "next-pwa": "^5.4.4",
     "react": "17.0.2",
