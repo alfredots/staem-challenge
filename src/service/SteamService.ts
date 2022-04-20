@@ -1,5 +1,16 @@
 import { supabase } from './client'
 
+export type Game = {
+  id: number
+  link: string
+  image: string
+  title: string
+  price: string
+  tags: string[]
+  platforms: string[]
+  genre: string
+}
+
 const FirstGames = [
   'ELDEN RING',
   'Ghostwire: Tokyo',
