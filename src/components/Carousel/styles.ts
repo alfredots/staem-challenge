@@ -36,7 +36,7 @@ export const Container = styled.div`
     .splide {
       padding-left: 0;
       padding-right: 0;
-      padding-bottom: 5rem;
+      padding-bottom: 6rem;
     }
 
     .splide__slide {
