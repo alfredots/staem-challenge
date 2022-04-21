@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           content="A simple project start to work with TypeScript, React, NextJS and Styled Components"
         />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link
           href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap"
           rel="stylesheet"
