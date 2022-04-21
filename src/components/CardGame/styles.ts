@@ -27,9 +27,10 @@ export const Image = styled.div<ImageProps>`
   background-image: url(${({ src }) => src});
   background-position: center;
   background-size: cover;
-  border-radius: 30px 0px 0px 30px;
+  border-radius: 30px 30px 0px 0px;
 
   @media (min-width: 1024px) {
+    border-radius: 30px 0px 0px 30px;
     min-width: 599px;
     width: 599px;
     height: 245px;
