@@ -52,7 +52,7 @@ export const Container = styled.div`
     // Active Slide
     .splide__slide.is-active {
       img {
-        transform: scale(1);
+        transform: scale(0.9);
       }
     }
 
