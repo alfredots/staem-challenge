@@ -14,6 +14,8 @@ import '@splidejs/react-splide/css/sea-green'
 // or only core styles
 import '@splidejs/react-splide/css/core'
 
+import 'react-loading-skeleton/dist/skeleton.css'
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ThemeProvider theme={theme}>

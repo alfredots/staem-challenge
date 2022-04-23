@@ -47,3 +47,18 @@ export async function filterGamesByString(name: string) {
     return null
   }
 }
+
+export async function filterByProperty(type: string) {
+  try {
+    const { data, error } = await supabase
+      .from('steam')
+      .select('*')
+      .order(type, { ascending: true })
+      .limit(10)
+
+    return data
+  } catch (error) {
+    console.log(error)
+    return null
+  }
+}

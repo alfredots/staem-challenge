@@ -22,4 +22,20 @@ export const CardsContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 30px;
+
+  span {
+    width: 100% !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+`
+
+export const LoadingContainer = styled.div`
+  width: 100%;
+  height: 600px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
 `
