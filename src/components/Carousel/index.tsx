@@ -32,14 +32,21 @@ export const Carousel = ({ games }: CarouselProps) => {
         {games.length !== 0
           ? games.map((game) => (
               <SplideSlide key={game.id}>
-                <img src={game.image} alt={game.title} />
+                <a href={game.link} target="_blank" rel="noreferrer">
+                  <img src={game.image} alt={game.title} />
+                </a>
               </SplideSlide>
             ))
           : Array(6)
               .fill({})
               .map((value, index) => (
                 <SplideSlide key={index}>
-                  <Skeleton width="95%" height={300} />
+                  <Skeleton
+                    width="95%"
+                    height={300}
+                    baseColor="#17202d"
+                    highlightColor="#2e3642"
+                  />
                 </SplideSlide>
               ))}
       </Splide>

@@ -13,6 +13,8 @@ import { CardGame } from 'components/CardGame'
 export const Main = () => {
   const [carouselGames, setCarouselGames] = useState<Game[]>([])
   const [games, setGames] = useState<Game[]>([])
+  const [searchName, setSearchName] = useState('')
+  const [filter, setFilter] = useState('')
   const [isLoading, setLoading] = useState(false)
 
   async function getGames() {
@@ -31,8 +33,18 @@ export const Main = () => {
       <Carousel games={carouselGames} />
       <NewTrending />
       <S.InputContainer>
-        <SearchInput setGames={setGames} setLoading={setLoading} />
-        <Filter setGames={setGames} setLoading={setLoading} />
+        <SearchInput
+          filter={filter}
+          setGames={setGames}
+          setLoading={setLoading}
+          setSearchName={setSearchName}
+        />
+        <Filter
+          searchName={searchName}
+          setGames={setGames}
+          setLoading={setLoading}
+          setFilter={setFilter}
+        />
       </S.InputContainer>
       <S.CardsContainer>
         {isLoading && (
@@ -41,7 +53,14 @@ export const Main = () => {
           </S.LoadingContainer>
         )}
         {carouselGames.length === 0 && (
-          <Skeleton width="100%" height={245} count={6} />
+          <Skeleton
+            className="skeleton"
+            width="100%"
+            baseColor="#17202d"
+            highlightColor="#2e3642"
+            height={245}
+            count={6}
+          />
         )}
         {games.length === 0 &&
           !isLoading &&

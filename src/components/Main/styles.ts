@@ -24,11 +24,14 @@ export const CardsContainer = styled.div`
   gap: 30px;
 
   span {
-    width: 100% !important;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 30px;
+  }
+
+  span[aria-live='polite'] {
+    width: 100%;
   }
 `
 

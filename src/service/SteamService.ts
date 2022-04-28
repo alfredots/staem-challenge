@@ -34,29 +34,37 @@ export async function getFirstGames() {
   }
 }
 
-export async function filterGamesByString(name: string) {
+// export async function filterGamesByString(name: string) {
+//   try {
+//     const { data, error } = await supabase.from('steam').select('*')
+
+//     return data
+//   } catch (error) {
+//     console.log(error)
+//     return null
+//   }
+// }
+
+export async function filterGame(type: string, name: string) {
   try {
-    const { data, error } = await supabase
-      .from('steam')
-      .select('*')
-      .ilike('title', `%${name}%`)
+    if (type.length > 0) {
+      const { data, error } = await supabase
+        .from('steam')
+        .select('*')
+        .ilike('title', `%${name}%`)
+        .order(type, { ascending: true })
+        .limit(10)
 
-    return data
-  } catch (error) {
-    console.log(error)
-    return null
-  }
-}
+      return data
+    } else {
+      const { data, error } = await supabase
+        .from('steam')
+        .select('*')
+        .ilike('title', `%${name}%`)
+        .limit(10)
 
-export async function filterByProperty(type: string) {
-  try {
-    const { data, error } = await supabase
-      .from('steam')
-      .select('*')
-      .order(type, { ascending: true })
-      .limit(10)
-
-    return data
+      return data
+    }
   } catch (error) {
     console.log(error)
     return null
