@@ -1,21 +1,31 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Skeleton from 'react-loading-skeleton'
 import ReactLoading from 'react-loading'
 import { Carousel } from 'components/Carousel'
 import { Header } from 'components/Header'
 import * as S from './styles'
 import { useState, useEffect } from 'react'
-import { Game, getFirstGames } from 'service/SteamService'
+import { Game, getFirstGames, filterGame } from 'service/SteamService'
 import { NewTrending } from 'components/NewTrending'
 import { SearchInput } from 'components/SearchInput'
 import { Filter } from 'components/Filter'
 import { CardGame } from 'components/CardGame'
+import { useApp } from 'context/AppContext'
 
 export const Main = () => {
   const [carouselGames, setCarouselGames] = useState<Game[]>([])
-  const [games, setGames] = useState<Game[]>([])
-  const [searchName, setSearchName] = useState('')
-  const [filter, setFilter] = useState('')
-  const [isLoading, setLoading] = useState(false)
+
+  const {
+    games,
+    setGames,
+    isLoading,
+    currentPage,
+    setCurrentPage,
+    searchName,
+    filter,
+    moreGames,
+    setMoreGames
+  } = useApp()
 
   async function getGames() {
     const data = await getFirstGames()
@@ -27,24 +37,33 @@ export const Main = () => {
     getGames()
   }, [])
 
+  useEffect(() => {
+    const intersectionObserver = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        setCurrentPage((prevValue) => prevValue + 1)
+      }
+    })
+    intersectionObserver.observe(document.querySelector('#sentinel'))
+
+    return () => intersectionObserver.disconnect()
+  }, [])
+
+  useEffect(() => {
+    async function getData() {
+      const data = await filterGame(filter, searchName, currentPage)
+      setMoreGames([...moreGames, ...data])
+    }
+    getData()
+  }, [currentPage])
+
   return (
     <S.Wrapper>
       <Header />
       <Carousel games={carouselGames} />
       <NewTrending />
       <S.InputContainer>
-        <SearchInput
-          filter={filter}
-          setGames={setGames}
-          setLoading={setLoading}
-          setSearchName={setSearchName}
-        />
-        <Filter
-          searchName={searchName}
-          setGames={setGames}
-          setLoading={setLoading}
-          setFilter={setFilter}
-        />
+        <SearchInput />
+        <Filter />
       </S.InputContainer>
       <S.CardsContainer>
         {isLoading && (
@@ -68,6 +87,9 @@ export const Main = () => {
         {games.length > 0 &&
           !isLoading &&
           games.map((game) => <CardGame key={game.id} game={game} />)}
+        {moreGames.length > 0 &&
+          moreGames.map((game) => <CardGame key={game.id} game={game} />)}
+        <div id="sentinel" />
       </S.CardsContainer>
     </S.Wrapper>
   )

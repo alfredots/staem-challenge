@@ -1,29 +1,30 @@
 import * as S from './styles'
 import { BaseSyntheticEvent } from 'react'
-import { filterGame, Game } from 'service/SteamService'
+import { useApp } from 'context/AppContext'
+import { filterGame } from 'service/SteamService'
 
-type SearchInputProps = {
-  filter: string
-  setGames: (games: any) => void
-  setLoading: (value: boolean) => void
-  setSearchName: (value: string) => void
-}
-
-export const SearchInput = ({
-  filter,
-  setGames,
-  setLoading,
-  setSearchName
-}: SearchInputProps) => {
+export const SearchInput = () => {
+  const {
+    filter,
+    currentPage,
+    setCurrentPage,
+    setSearchName,
+    setLoading,
+    setGames,
+    setMoreGames
+  } = useApp()
   async function searchGame(e: BaseSyntheticEvent) {
+    setCurrentPage(1)
     if (e.target.value.length === 0) {
+      setSearchName('')
       setGames([])
       return
     }
     setLoading(true)
     setSearchName(e.target.value)
-    const data = await filterGame(filter, e.target.value as string)
+    const data = await filterGame(filter, e.target.value, currentPage)
     setGames(data)
+    setMoreGames([])
     setLoading(false)
   }
 

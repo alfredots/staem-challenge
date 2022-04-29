@@ -45,25 +45,38 @@ export async function getFirstGames() {
 //   }
 // }
 
-export async function filterGame(type: string, name: string) {
+const getPagination = (page, size) => {
+  const limit = size ? +size : 3
+  const from = page ? page * limit : 0
+  const to = page ? from + size - 1 : size - 1
+
+  return { from, to }
+}
+
+export async function filterGame(
+  type: string,
+  name: string,
+  currentPage: number
+) {
   try {
+    const { from, to } = getPagination(currentPage - 1, 10)
     if (type.length > 0) {
       const { data, error } = await supabase
         .from('steam')
         .select('*')
+        .range(from, to)
         .ilike('title', `%${name}%`)
         .order(type, { ascending: true })
-        .limit(10)
 
-      return data
+      return data as Game[]
     } else {
       const { data, error } = await supabase
         .from('steam')
         .select('*')
+        .range(from, to)
         .ilike('title', `%${name}%`)
-        .limit(10)
 
-      return data
+      return data as Game[]
     }
   } catch (error) {
     console.log(error)
