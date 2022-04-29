@@ -18,6 +18,7 @@ export const Filter = () => {
     setCurrentPage(1)
     if (e.target.value === 'default') {
       setFilter('')
+      setGames([])
       return
     }
     setLoading(true)
