@@ -11,6 +11,7 @@ import { SearchInput } from 'components/SearchInput'
 import { Filter } from 'components/Filter'
 import { CardGame } from 'components/CardGame'
 import { useApp } from 'context/AppContext'
+import { NextSeo } from 'next-seo'
 
 export const Main = () => {
   const [carouselGames, setCarouselGames] = useState<Game[]>([])
@@ -57,40 +58,62 @@ export const Main = () => {
   }, [currentPage])
 
   return (
-    <S.Wrapper>
-      <Header />
-      <Carousel games={carouselGames} />
-      <NewTrending />
-      <S.InputContainer>
-        <SearchInput />
-        <Filter />
-      </S.InputContainer>
-      <S.CardsContainer>
-        {isLoading && (
-          <S.LoadingContainer>
-            <ReactLoading type="spin" height={50} width={50} />
-          </S.LoadingContainer>
-        )}
-        {carouselGames.length === 0 && (
-          <Skeleton
-            className="skeleton"
-            width="100%"
-            baseColor="#17202d"
-            highlightColor="#2e3642"
-            height={245}
-            count={6}
-          />
-        )}
-        {games.length === 0 &&
-          !isLoading &&
-          carouselGames.map((game) => <CardGame key={game.id} game={game} />)}
-        {games.length > 0 &&
-          !isLoading &&
-          games.map((game) => <CardGame key={game.id} game={game} />)}
-        {moreGames.length > 0 &&
-          moreGames.map((game) => <CardGame key={game.id} game={game} />)}
-        <div id="sentinel" />
-      </S.CardsContainer>
-    </S.Wrapper>
+    <>
+      <NextSeo
+        title="STAEM"
+        description="Project listing PC games available on the Steam platform."
+        canonical="https://staem-challenge.vercel.app/"
+        openGraph={{
+          url: 'https://staem-challenge.vercel.app/',
+          title: 'STAEM',
+          description:
+            'Project listing PC games available on the Steam platform.',
+          images: [
+            {
+              url: 'https://staem-challenge.vercel.app/img/thumbnail.png',
+              width: 1263,
+              height: 606,
+              alt: 'STAEM'
+            }
+          ],
+          site_name: 'STAEM'
+        }}
+      />
+      <S.Wrapper>
+        <Header />
+        <Carousel games={carouselGames} />
+        <NewTrending />
+        <S.InputContainer>
+          <SearchInput />
+          <Filter />
+        </S.InputContainer>
+        <S.CardsContainer>
+          {isLoading && (
+            <S.LoadingContainer>
+              <ReactLoading type="spin" height={50} width={50} />
+            </S.LoadingContainer>
+          )}
+          {carouselGames.length === 0 && (
+            <Skeleton
+              className="skeleton"
+              width="100%"
+              baseColor="#17202d"
+              highlightColor="#2e3642"
+              height={245}
+              count={6}
+            />
+          )}
+          {games.length === 0 &&
+            !isLoading &&
+            carouselGames.map((game) => <CardGame key={game.id} game={game} />)}
+          {games.length > 0 &&
+            !isLoading &&
+            games.map((game) => <CardGame key={game.id} game={game} />)}
+          {moreGames.length > 0 &&
+            moreGames.map((game) => <CardGame key={game.id} game={game} />)}
+          <div id="sentinel" />
+        </S.CardsContainer>
+      </S.Wrapper>
+    </>
   )
 }

@@ -4,6 +4,8 @@ import { GlobalStyles } from 'common/styles/global'
 import { ThemeProvider } from 'styled-components'
 import { theme } from './../common/styles/theme'
 
+import SEO from '../../next-seo.config'
+
 // Default theme
 import '@splidejs/react-splide/css'
 
@@ -15,6 +17,7 @@ import '@splidejs/react-splide/css/sea-green'
 import '@splidejs/react-splide/css/core'
 
 import 'react-loading-skeleton/dist/skeleton.css'
+import { DefaultSeo } from 'next-seo'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -36,6 +39,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           rel="stylesheet"
         />
       </Head>
+      <DefaultSeo {...SEO} />
       <GlobalStyles />
       <Component {...pageProps} />
     </ThemeProvider>
